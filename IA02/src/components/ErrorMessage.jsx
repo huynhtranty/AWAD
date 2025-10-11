@@ -6,7 +6,7 @@
 const ErrorMessage = ({ message }) => {
   return (
     <div className="flex items-center justify-center py-12">
-      <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg shadow-md max-w-md">
+      <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 px-6 py-4 rounded-lg shadow-md max-w-md">
         <div className="flex items-center">
           <svg
             className="w-6 h-6 mr-3"

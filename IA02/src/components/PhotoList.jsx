@@ -28,10 +28,10 @@ const PhotoList = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
           Photo Gallery
         </h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-300">
           Browse beautiful photos from Lorem Picsum
         </p>
       </div>
@@ -62,7 +62,7 @@ const PhotoList = () => {
 
           {!hasMore && photos.length > 0 && (
             <div className="text-center py-8">
-              <p className="text-gray-600 font-medium">
+              <p className="text-gray-600 dark:text-gray-400 font-medium">
                 No more photos to load
               </p>
             </div>

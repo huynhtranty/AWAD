@@ -1,0 +1,10 @@
+[build]
+  base = "IA01"
+  command = "npm run build"
+  publish = "dist"
+
+# For React Router (if you're using it)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
