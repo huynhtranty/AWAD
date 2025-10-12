@@ -9,13 +9,13 @@ import ErrorMessage from './ErrorMessage';
  * DetailRow component - Reusable component for displaying photo information
  */
 const DetailRow = ({ label, children }) => (
-  <div className="flex items-start py-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
-    <div className="flex-shrink-0 w-32 pt-1">
-      <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
+  <div className="flex flex-col sm:flex-row sm:items-start py-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
+    <div className="flex-shrink-0 w-full sm:w-32 mb-2 sm:mb-0 sm:pt-1">
+      <p className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
         {label}
       </p>
     </div>
-    <div className="flex-1 pl-4">
+    <div className="flex-1 sm:pl-4">
       {children}
     </div>
   </div>
@@ -57,7 +57,7 @@ const PhotoDetail = () => {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
         <LoadingSpinner message="Loading photo details..." />
       </div>
     );
@@ -65,12 +65,12 @@ const PhotoDetail = () => {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
         <ErrorMessage message={error} />
-        <div className="text-center mt-6">
+        <div className="text-center mt-4 sm:mt-6">
           <button
             onClick={() => navigate('/photos')}
-            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            className="px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-blue-500 text-white rounded-lg hover:bg-blue-600 active:bg-blue-700 transition-colors touch-manipulation"
           >
             Back to Gallery
           </button>
@@ -81,21 +81,21 @@ const PhotoDetail = () => {
 
   if (!photo) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
         <ErrorMessage message="Photo not found" />
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
       <div className="max-w-5xl mx-auto">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl dark:shadow-gray-900/50 overflow-hidden">
-          {/* Image Section */}
-          <div className="relative bg-gray-200 dark:bg-gray-700 min-h-[400px]">
+          {/* Image Section - Responsive */}
+          <div className="relative bg-gray-200 dark:bg-gray-700 min-h-[250px] sm:min-h-[350px] md:min-h-[400px]">
             {!imageLoaded && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-16 h-16 border-4 border-blue-500 dark:border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-12 h-12 sm:w-16 sm:h-16 border-3 sm:border-4 border-blue-500 dark:border-blue-400 border-t-transparent rounded-full animate-spin"></div>
               </div>
             )}
             <img
@@ -108,44 +108,44 @@ const PhotoDetail = () => {
             />
           </div>
 
-          {/* Details Section */}
-          <div className="p-8">
-            {/* Header */}
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
+          {/* Details Section - Responsive Padding */}
+          <div className="p-4 sm:p-6 md:p-8">
+            {/* Header - Responsive Typography */}
+            <div className="mb-6 sm:mb-8">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">
                 Photo #{photo.id}
               </h1>
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">
                 A stunning photograph from Lorem Picsum collection
               </p>
             </div>
 
-            {/* Photo Information */}
-            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-6 mb-8">
-              <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+            {/* Photo Information - Responsive */}
+            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8">
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-3 sm:mb-4">
                 Photo Information
               </h2>
               <div className="space-y-1">
                 {/* Author */}
                 <DetailRow label="Author">
-                  <p className="text-lg text-gray-800 dark:text-gray-200 font-medium">
+                  <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200 font-medium">
                     {photo.author || 'Unknown'}
                   </p>
                 </DetailRow>
 
                 {/* Dimensions */}
                 <DetailRow label="Dimensions">
-                  <p className="text-lg text-gray-800 dark:text-gray-200">
+                  <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
                     {photo.width} × {photo.height} pixels
                   </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                     Aspect Ratio: {(photo.width / photo.height).toFixed(2)}:1
                   </p>
                 </DetailRow>
 
                 {/* Description */}
                 <DetailRow label="Description">
-                  <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                     This is a high-quality photograph from the Lorem Picsum
                     collection, perfect for placeholder images and design
                     mockups. The image showcases professional photography with
@@ -160,11 +160,12 @@ const PhotoDetail = () => {
                       href={photo.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-base text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline font-medium"
+                      className="inline-flex items-center text-sm sm:text-base text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline font-medium touch-manipulation"
                     >
-                      View Original Source
+                      <span className="hidden sm:inline">View Original Source</span>
+                      <span className="sm:hidden">View Source</span>
                       <svg
-                        className="w-4 h-4 ml-1"
+                        className="w-3 h-3 sm:w-4 sm:h-4 ml-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -187,11 +188,12 @@ const PhotoDetail = () => {
                       href={photo.download_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-base text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline font-medium"
+                      className="inline-flex items-center text-sm sm:text-base text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline font-medium touch-manipulation"
                     >
-                      Download Full Size Image
+                      <span className="hidden sm:inline">Download Full Size Image</span>
+                      <span className="sm:hidden">Download</span>
                       <svg
-                        className="w-4 h-4 ml-1"
+                        className="w-3 h-3 sm:w-4 sm:h-4 ml-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -209,17 +211,17 @@ const PhotoDetail = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-4">
+            {/* Action Buttons - Responsive */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={() => navigate('/photos')}
-                className="flex-1 px-6 py-3 bg-gray-600 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors font-medium shadow-sm"
+                className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-600 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 active:bg-gray-800 transition-colors font-medium shadow-sm touch-manipulation"
               >
                 Back to Gallery
               </button>
               <button
                 onClick={() => window.open(photo.download_url, '_blank')}
-                className="flex-1 px-6 py-3 bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors font-medium shadow-sm"
+                className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 active:bg-blue-800 transition-colors font-medium shadow-sm touch-manipulation"
               >
                 Download Photo
               </button>
