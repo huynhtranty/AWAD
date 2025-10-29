@@ -12,7 +12,7 @@ const Home = () => {
         </p>
         <div className="space-y-4">
           <Link
-            to="/signup"
+            to="/register"
             className="block w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 transition duration-200"
           >
             Sign Up
