@@ -7,7 +7,13 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors({
-    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'https://awad-04-gmow99hel-hytatys-projects.vercel.app',
+      'https://ia-03-hytatys-projects.vercel.app',
+      /\.vercel\.app$/, // Allow all Vercel preview deployments
+    ],
     credentials: true,
   });
 
