@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 interface LoginFormData {
   email: string;
@@ -8,9 +8,7 @@ interface LoginFormData {
 }
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+  const { login, isLoggingIn, loginError } = useAuth();
 
   const {
     register,
@@ -18,19 +16,12 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  const onSubmit = (data: LoginFormData) => {
-    setIsLoading(true);
-
-    // Simulate login API call
-    setTimeout(() => {
-      setIsLoading(false);
-      setSuccessMessage(`Login successful! Welcome back, ${data.email}`);
-
-      // Redirect to home after successful login
-      setTimeout(() => {
-        navigate('/');
-      }, 2000);
-    }, 1000);
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      await login(data);
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   };
 
   return (
@@ -40,9 +31,9 @@ const Login = () => {
           Welcome Back
         </h2>
 
-        {successMessage && (
-          <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-            {successMessage}
+        {loginError && (
+          <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            {loginError.message || 'Login failed. Please check your credentials.'}
           </div>
         )}
 
@@ -99,10 +90,10 @@ const Login = () => {
 
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoggingIn}
             className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 transition duration-200 disabled:bg-indigo-400 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Logging in...' : 'Login'}
+            {isLoggingIn ? 'Logging in...' : 'Login'}
           </button>
         </form>
 

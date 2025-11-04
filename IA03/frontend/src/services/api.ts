@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+import axiosInstance from './axios';
 
 export interface RegisterData {
   email: string;
@@ -13,19 +13,40 @@ export interface RegisterResponse {
   };
 }
 
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
+export interface TokensResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface UserProfile {
+  email: string;
+  createdAt: string;
+}
+
+// Register user
 export const registerUser = async (data: RegisterData): Promise<RegisterResponse> => {
-  const response = await fetch(`${API_BASE_URL}/user/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+  const response = await axiosInstance.post('/user/register', data);
+  return response.data;
+};
 
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Registration failed');
-  }
+// Login user
+export const loginUser = async (data: LoginData): Promise<TokensResponse> => {
+  const response = await axiosInstance.post('/auth/login', data);
+  return response.data;
+};
 
-  return response.json();
+// Logout user
+export const logoutUser = async (): Promise<void> => {
+  await axiosInstance.post('/auth/logout');
+};
+
+// Get user profile (protected route)
+export const getUserProfile = async (): Promise<UserProfile> => {
+  const response = await axiosInstance.get('/user/profile');
+  return response.data;
 };

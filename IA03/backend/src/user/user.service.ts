@@ -44,4 +44,15 @@ export class UserService {
       throw new InternalServerErrorException('Error registering user');
     }
   }
+
+  async findById(userId: string): Promise<{ email: string; createdAt: Date }> {
+    const user = await this.userModel.findById(userId).select('-password -refreshToken');
+    if (!user) {
+      throw new InternalServerErrorException('User not found');
+    }
+    return {
+      email: user.email,
+      createdAt: user.createdAt,
+    };
+  }
 }

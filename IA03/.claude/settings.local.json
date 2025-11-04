@@ -5,7 +5,17 @@
       "Bash(npm install:*)",
       "Bash(npm create:*)",
       "Bash(npx tailwindcss:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git checkout:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm start)",
+      "Bash(npm run dev:*)",
+      "Bash(taskkill:*)",
+      "Bash(nul)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []
